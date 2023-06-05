@@ -4,23 +4,27 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Banana
   - Trap
   - Enemy
+  - Jetpack
+  - HealthBooster
+  - HealthHeal
+  - LevelButton
+  - Fuel
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
-  - Ground
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Corpse
+  - Player
+  - Enemy
+  - Projectile
+  - Trap
+  - Collectible
+  - Background
   - 
   - 
   - 

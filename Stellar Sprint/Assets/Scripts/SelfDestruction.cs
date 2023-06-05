@@ -4,13 +4,23 @@ using UnityEngine;
 
 public class SelfDestruction : MonoBehaviour
 {
+    private float destroyEnemySeconds = 5f;
+    private float destroyOtherSeconds = 0.5f;
+
     void Start()
     {
-        StartCoroutine(SelfDestruct());
+        if (gameObject.CompareTag("Enemy"))
+        {
+            StartCoroutine(SelfDestruct(destroyEnemySeconds));
+        }
+        else
+        {
+            StartCoroutine(SelfDestruct(destroyOtherSeconds));
+        }
     }
-    IEnumerator SelfDestruct()
+    IEnumerator SelfDestruct(float secondsToDestroy)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(secondsToDestroy);
         Destroy(gameObject);
     }
 }

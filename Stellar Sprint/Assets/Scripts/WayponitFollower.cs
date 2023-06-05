@@ -7,74 +7,44 @@ public class WayponitFollower : MonoBehaviour
 
     private int currentWaypointIndex = 0;
 
-    public Transform playerTransform;
-    public bool isChasing;
-    public float chaseDistance = 10f;
-
     private void Update()
     {
-        if (isChasing)
+        if (currentWaypointIndex == 0)
         {
-            if (transform.position.x > playerTransform.position.x)
+            transform.position = Vector2.MoveTowards(transform.position, waypoints[0].transform.position, Time.deltaTime * speed);
+            if (Vector2.Distance(transform.position, waypoints[0].transform.position) < .1f)
             {
-                transform.localScale = new Vector3(-1, 1, 1);
-                transform.position += Vector3.left * speed * Time.deltaTime;
-            }
-            if (transform.position.x < playerTransform.position.x)
-            {
-                transform.localScale = new Vector3(1, 1, 1);
-                transform.position += Vector3.right * speed * Time.deltaTime;
+                transform.localEulerAngles = new Vector3(0, 180, 0);
+                currentWaypointIndex = 1;
             }
         }
 
-        else
+        if (currentWaypointIndex == 1)
         {
-            // Для врагов
-            if (gameObject.name == "Enemy")
+            transform.position = Vector2.MoveTowards(transform.position, waypoints[1].transform.position, Time.deltaTime * speed);
+            if (Vector2.Distance(transform.position, waypoints[1].transform.position) < .1f)
             {
-                if(Vector2.Distance(transform.position, playerTransform.position) < chaseDistance)
-                {
-                    isChasing = true;
-                }
-
-                if (currentWaypointIndex == 0)
-                {
-                    transform.position = Vector2.MoveTowards(transform.position, waypoints[0].transform.position, Time.deltaTime * speed);
-                    if (Vector2.Distance(transform.position, waypoints[0].transform.position) < .1f)
-                    {
-                        transform.localScale = new Vector3(1, 1, 1);
-                        currentWaypointIndex = 1;
-                    }
-                }
-
-                if (currentWaypointIndex == 1)
-                {
-                    transform.position = Vector2.MoveTowards(transform.position, waypoints[1].transform.position, Time.deltaTime * speed);
-                    if (Vector2.Distance(transform.position, waypoints[1].transform.position) < .1f)
-                    {
-                        transform.localScale = new Vector3(-1, 1, 1);
-                        currentWaypointIndex = 0;
-                    }
-                }
-            }
-
-            // Для платформ, лезвии и тп
-            else
-            {
-                if (Vector2.Distance(waypoints[currentWaypointIndex].transform.position, transform.position) < .1f)
-                {
-                    currentWaypointIndex++;
-                    if (currentWaypointIndex >= waypoints.Length)
-                    {
-                        currentWaypointIndex = 0;
-                    }
-                }
-                transform.position = Vector2.MoveTowards(transform.position, waypoints[currentWaypointIndex].transform.position, Time.deltaTime * speed);
+                transform.localEulerAngles = new Vector3(0, 0, 0);
+                currentWaypointIndex = 0;
             }
         }
+        if (currentWaypointIndex == 0 && transform.localEulerAngles == new Vector3(0, 0, 0))
+        {
+            transform.localEulerAngles = new Vector3(0, 180, 0);
+        }
+        else if (currentWaypointIndex != 0 && transform.localEulerAngles == new Vector3(0, 180, 0))
+        {
+            transform.localEulerAngles = new Vector3(0, 0, 0);
+        }
+
         if (gameObject.CompareTag("Trap"))
         {
             speed = 8f;
         }
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(waypoints[0].transform.position, waypoints[1].transform.position);
     }
 }

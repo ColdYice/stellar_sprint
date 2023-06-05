@@ -6,8 +6,9 @@ using UnityEngine.SceneManagement;
 public class Finish : MonoBehaviour
 {
     private AudioSource finishSound;
-
-    private bool levelCompleted = false;
+    [SerializeField] private ItemCollector itemCollector;
+    [SerializeField] private GameObject levelEndPanel;
+    //private bool levelCompleted = false;
 
     void Start()
     {
@@ -16,16 +17,13 @@ public class Finish : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "Player" && !levelCompleted)
+        if (collision.gameObject.CompareTag("Player"))
         {
             finishSound.Play();
-            levelCompleted = true;
-            Invoke("CompleteLevel", 2f);
+            Time.timeScale = 0f; 
+            int fuels = PlayerPrefs.GetInt("fuels");
+            PlayerPrefs.SetInt("fuels", fuels + itemCollector.fuelsCollectedCurrentLevel);
+            levelEndPanel.gameObject.SetActive(true);
         }
-    }
-
-    private void CompleteLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

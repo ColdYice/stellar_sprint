@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,7 @@ public class EnemyPatrol : MonoBehaviour
     [SerializeField]
     protected float waitSeconds = 2f;
 
-    protected Vector3 target; 
+    protected Vector3 target;
     protected Vector3 velocity;
     protected Vector3 previousPosition;
     protected Animator anim;
@@ -21,40 +22,81 @@ public class EnemyPatrol : MonoBehaviour
     [SerializeField]
     protected Transform[] waypoints;
 
-    [SerializeField]
-    protected bool isPlayerSpotted = false;
+    public bool isPlayerDetected;
+
+    public Transform playerTransform;
+    public float agroRange = 10f;
+
+    private Vector3 currentFacing;
+
+    public PlayerLife playerLife;
 
     private void Start()
     {
         Init();
     }
 
-    public virtual void Update()
+    public void Update()
     {
-        if (!isPlayerSpotted)
+        if (playerTransform != null)
         {
-            Movement();
-        }
-        else
-        {
-            anim.SetFloat("speed", 0f);
+            float distToPlayer = Vector2.Distance(transform.position, playerTransform.position);
+
+            if (distToPlayer < agroRange && playerLife.isPlayerAlive)
+            {
+                isPlayerDetected = true;
+            }
+            else
+            {
+                isPlayerDetected = false;
+            }
+
+            if (isPlayerDetected)
+            {
+                if (transform.position.x < playerTransform.position.x)
+                {
+                    transform.localEulerAngles = new Vector3(0, 0, 0);
+                }
+                else
+                {
+                    transform.localEulerAngles = new Vector3(0, 180, 0);
+                    //Таран игрока
+                    //transform.position += Vector3.right * speed * Time.deltaTime;
+                }
+                anim.SetFloat("speed", 0f);
+                anim.SetTrigger("attack");
+            }
+            else
+            {
+                if (currentFacing == waypoints[0].position && transform.localEulerAngles == new Vector3(0, 0, 0))
+                {
+                    transform.localEulerAngles = new Vector3(0, 180, 0);
+                }
+                else if (currentFacing != waypoints[0].position && transform.localEulerAngles == new Vector3(0, 180, 0))
+                {
+                    transform.localEulerAngles = new Vector3(0, 0, 0);
+                }
+                Movement();
+                anim.ResetTrigger("attack");
+            }
         }
     }
 
-    public virtual void Init()
+    public void Init()
     {
         anim = GetComponentInChildren<Animator>();
         target = waypoints[1].position;
     }
 
-    public virtual IEnumerator SetTarget(Vector3 position)
-    {
+    public IEnumerator SetTarget(Vector3 position)
+    {        
         yield return new WaitForSeconds(waitSeconds);
         target = position;
         FaceTowards(position - transform.position);
+        currentFacing = target;
     }
 
-    public virtual void FaceTowards(Vector3 direction)
+    public void FaceTowards(Vector3 direction)
     {
         if (direction.x < .1f)
         {
@@ -96,5 +138,10 @@ public class EnemyPatrol : MonoBehaviour
                 }
             }
         }
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(waypoints[0].transform.position, waypoints[1].transform.position);
     }
 }
