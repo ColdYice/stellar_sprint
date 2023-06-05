@@ -123,11 +123,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8be1cb70de27ec345bbcdb2521cb0f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
   waypoints:
   - {fileID: 6421521024972134145}
   - {fileID: 5475775757920162928}
   speed: 4
+  rb: {fileID: 0}
 --- !u!61 &5208287897552620023
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -162,7 +162,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5208287897552619789}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -171,9 +171,9 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!251 &2663912536565106320
 PlatformEffector2D:

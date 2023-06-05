@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class StickyPlatform : MonoBehaviour
 {
-    public Rigidbody2D rb;
     [SerializeField] private GameObject[] waypoints;
     [SerializeField] private float speed = 4f;
 
     private int currentWaypointIndex = 0;
 
-    private void Start()
+    public Rigidbody2D rb;
+    PlayerMovement playerMovement;
+
+    private void Awake()
     {
+        playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -30,7 +33,7 @@ public class StickyPlatform : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "Player")
+        if (collision.CompareTag("Player"))
         {
             collision.gameObject.transform.SetParent(transform);
         }
@@ -38,7 +41,7 @@ public class StickyPlatform : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "Player")
+        if (collision.CompareTag("Player"))
         {
             collision.gameObject.transform.SetParent(null);
         }

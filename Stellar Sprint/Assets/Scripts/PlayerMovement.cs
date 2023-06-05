@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
     public bool KnockFromRight;
 
     public bool isOnPlatform;
-    public StickyPlatform platformRb;
+    public Rigidbody2D platformRb;
 
     #endregion
     private void Start()
@@ -55,40 +55,10 @@ public class PlayerMovement : MonoBehaviour
         playerLife = GetComponent<PlayerLife>();
         weaponAttack = GetComponent<WeaponAttack>();
     }
-
     private void Update()
     {
         if (rb.bodyType != RigidbodyType2D.Static && playerLife.isPlayerAlive)
-        {
-            // Горизонтальное передвижение
-            moveInput = Input.GetAxisRaw("Horizontal");
-
-            if (KBCounter <= 0)
-            {
-                if (isOnPlatform)
-                {
-                    rb.velocity = new Vector2((moveInput * moveSpeed) + platformRb.rb.velocity.x, rb.velocity.y);
-                }
-                else
-                {
-                    rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
-                }
-            }
-            // Отбрасывание от получения урона
-            else
-            {
-                if (KnockFromRight == true)
-                {
-                    rb.velocity = new Vector2(-KBForce, KBForce);
-                }
-                if (KnockFromRight == false)
-                {
-                    rb.velocity = new Vector2(KBForce, KBForce);
-                }
-
-                KBCounter -= Time.deltaTime;
-            }
-
+        {          
             if (moveInput < 0f && facingRight)
             {
                 Flip();
@@ -154,6 +124,36 @@ public class PlayerMovement : MonoBehaviour
         }
 
         UpdateAnimation();
+    }
+    private void FixedUpdate()
+    {
+        // Горизонтальное передвижение
+        moveInput = Input.GetAxisRaw("Horizontal");
+        if (KBCounter <= 0)
+        {
+            if (isOnPlatform)
+            {
+                rb.velocity = new Vector2((moveInput * moveSpeed) + platformRb.velocity.x, rb.velocity.y);
+            }
+            else
+            {
+                rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+            }
+        }
+        // Отбрасывание от получения урона
+        else
+        {
+            if (KnockFromRight == true)
+            {
+                rb.velocity = new Vector2(-KBForce, KBForce);
+            }
+            if (KnockFromRight == false)
+            {
+                rb.velocity = new Vector2(KBForce, KBForce);
+            }
+
+            KBCounter -= Time.deltaTime;
+        }
     }
 
     //Смена анимации игрока
