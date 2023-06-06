@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
-{    
+{
     // Должен быть таким же как число уровня
     public string objectName;
 
-    public int price;    
+    public int price;
     public GameObject block;
     public Text objectPrice;
     private int fuels, hasAccess;
@@ -34,7 +34,6 @@ public class Shop : MonoBehaviour
             block.gameObject.SetActive(false);
             objectPrice.gameObject.SetActive(false);
         }
-
     }
 
     public void Buy()
@@ -52,7 +51,7 @@ public class Shop : MonoBehaviour
         }
         else
         {
-            string levelNum = objectName.Remove(0,5);
+            string levelNum = objectName.Remove(0, 5);
             SceneManager.LoadScene(int.Parse(levelNum));
         }
     }

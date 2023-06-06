@@ -24,16 +24,19 @@ public class EnemyPatrol : MonoBehaviour
 
     public bool isPlayerDetected;
 
-    public Transform playerTransform;
+    private Transform playerTransform;
     public float agroRange = 10f;
 
     private Vector3 currentFacing;
 
-    public PlayerLife playerLife;
+    private PlayerLife playerLife;
 
     private void Start()
     {
-        Init();
+        if (waypoints != null)
+            Init();
+        playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        playerLife = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerLife>();
     }
 
     public void Update()
@@ -68,16 +71,18 @@ public class EnemyPatrol : MonoBehaviour
             }
             else
             {
-                if (currentFacing == waypoints[0].position && transform.localEulerAngles == new Vector3(0, 0, 0))
+                if (waypoints != null)
                 {
-                    transform.localEulerAngles = new Vector3(0, 180, 0);
+                    if (currentFacing == waypoints[0].position && transform.localEulerAngles == new Vector3(0, 0, 0))
+                    {
+                        transform.localEulerAngles = new Vector3(0, 180, 0);
+                    }
+                    else if (currentFacing != waypoints[0].position && transform.localEulerAngles == new Vector3(0, 180, 0))
+                    {
+                        transform.localEulerAngles = new Vector3(0, 0, 0);
+                    }
+                    Movement();
                 }
-                else if (currentFacing != waypoints[0].position && transform.localEulerAngles == new Vector3(0, 180, 0))
-                {
-                    transform.localEulerAngles = new Vector3(0, 0, 0);
-                }
-                Movement();
-                anim.ResetTrigger("attack");
             }
         }
     }

@@ -8,10 +8,11 @@ public class LevelControl : MonoBehaviour
 {
     public GameObject pausePanel;
     public GameObject levelEndPanel;
-    private int levelNum;
+    public int levelNum;
     private int nextLevelNum;
     private int hasAccessToLevel;
     private static bool isPaused = false;
+    public GameObject notOpened;
 
     private void Update()
     {
@@ -25,13 +26,14 @@ public class LevelControl : MonoBehaviour
             {
                 ContinueButton();
             }
-            Debug.Log("Level Number: " + levelNum);
         }
     }
     private void Start()
     {
         levelNum = SceneManager.GetActiveScene().buildIndex;
         nextLevelNum++;
+        if(notOpened != null)
+        notOpened.SetActive(false);
     }
 
     public void StartLevel()
@@ -54,6 +56,7 @@ public class LevelControl : MonoBehaviour
     public void RestartButton()
     {
         isPaused = false;
+        notOpened.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1f;
         if (pausePanel != null)
@@ -62,6 +65,7 @@ public class LevelControl : MonoBehaviour
     public void ToMainMenu(int scene)
     {
         isPaused = false;
+        notOpened.SetActive(false);
         SceneManager.LoadScene(scene);
         Time.timeScale = 1f;
     }
@@ -78,12 +82,21 @@ public class LevelControl : MonoBehaviour
         }
         else
         {
-            Debug.Log("Not opened");
+            notOpened.SetActive(true);
         }
     }
 
     public void QuitGame()
     {
         Application.Quit();
+    }
+    public void ResetStats()
+    {
+        PlayerPrefs.DeleteAll();
+    }
+    public void CheatFuels()
+    {
+        int fuels = PlayerPrefs.GetInt("fuels");
+        PlayerPrefs.SetInt("fuels", fuels + 100);
     }
 }

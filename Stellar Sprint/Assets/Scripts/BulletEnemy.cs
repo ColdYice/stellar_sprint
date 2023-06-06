@@ -6,7 +6,7 @@ public class BulletEnemy : MonoBehaviour
 {
 
     [SerializeField] private float bulletSpeed = 10f;
-    [SerializeField] private float bulletDamage = 1f;
+    [SerializeField] private int bulletDamage = 1;
     [SerializeField] private GameObject impactEffect;
     private Rigidbody2D rb;
 

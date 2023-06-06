@@ -9,10 +9,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject deathEffect;
     private Animator anim;
 
-    public float damage;
-    public bool isEnemyAlive = true;
-    public PlayerLife playerLife;
-    public PlayerMovement playerMovement;
+    public int damage;
+    private bool isEnemyAlive = true;
+    private PlayerLife playerLife;
+    private PlayerMovement playerMovement;
 
     [Header("Damaged Effect")]
     [SerializeField] private float damagedDffectDuration = 0.1f;
@@ -29,6 +29,8 @@ public class Enemy : MonoBehaviour
         anim = GetComponent<Animator>();
         shaderGUItext = Shader.Find("GUI/Text Shader");
         shaderSpritesDefault = Shader.Find("Sprites/Default");
+        playerLife = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerLife>();
+        playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
     }
     private void FixedUpdate()
     {

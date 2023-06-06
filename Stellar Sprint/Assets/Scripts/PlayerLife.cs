@@ -20,8 +20,11 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] private Text hpText;
 
     [Header("Health")]
-    public float maxHealth;
-    public float health;
+    public int startHealth = 5;
+    public int maxHealth;
+    public int health;
+    public int maxPossibeHealth = 10;
+
     public bool isPlayerAlive = true;
     private bool isCollidingWithTrap = false;
 
@@ -44,12 +47,18 @@ public class PlayerLife : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         spriteRend = GetComponent<SpriteRenderer>();
-
-        health = maxHealth;
-        startPosition = transform.position;
     }
     private void Awake()
     {
+        if (maxHealth < startHealth)
+            maxHealth = startHealth;
+        if (maxHealth < PlayerPrefs.GetInt("maxHealth"))
+        {
+            maxHealth = PlayerPrefs.GetInt("maxHealth");
+            health = maxHealth;
+        }
+        startPosition = transform.position;
+
         PlayerLayer = LayerMask.NameToLayer("Player");
         EnemyLayer = LayerMask.NameToLayer("Enemy");
         ProjectileLayer = LayerMask.NameToLayer("Projectile");
@@ -153,7 +162,7 @@ public class PlayerLife : MonoBehaviour
         }
     }
 
-    public void PlayerTakeDamage(float damage)
+    public void PlayerTakeDamage(int damage)
     {
         health -= damage;
         hurtSound.Play();

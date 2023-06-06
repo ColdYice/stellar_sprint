@@ -283,7 +283,6 @@ GameObject:
   - component: {fileID: 753641272}
   - component: {fileID: 753641271}
   - component: {fileID: 753641270}
-  - component: {fileID: 753641273}
   - component: {fileID: 753641274}
   m_Layer: 5
   m_Name: Button (Legacy)
@@ -357,9 +356,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 753641273}
+      - m_Target: {fileID: 753641268}
         m_TargetAssemblyTypeName: StartAndEnd, Assembly-CSharp
-        m_MethodName: QuitGame
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -407,20 +406,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 753641268}
   m_CullTransparentMesh: 1
---- !u!114 &753641273
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 753641268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4aea4aeb7fbb23439634543f68b06f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pausePanel: {fileID: 0}
-  levelEndPanel: {fileID: 0}
 --- !u!114 &753641274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -608,7 +593,6 @@ GameObject:
   - component: {fileID: 1462532913}
   - component: {fileID: 1462532912}
   - component: {fileID: 1462532911}
-  - component: {fileID: 1462532910}
   - component: {fileID: 1462532909}
   m_Layer: 5
   m_Name: Button (Legacy) (2)
@@ -653,20 +637,6 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 1, b: 1, a: 0.5}
   m_EffectDistance: {x: 10, y: 10}
   m_UseGraphicAlpha: 1
---- !u!114 &1462532910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1462532907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4aea4aeb7fbb23439634543f68b06f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pausePanel: {fileID: 0}
-  levelEndPanel: {fileID: 0}
 --- !u!114 &1462532911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -711,9 +681,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1462532910}
+      - m_Target: {fileID: 753641268}
         m_TargetAssemblyTypeName: StartAndEnd, Assembly-CSharp
-        m_MethodName: QuitGame
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

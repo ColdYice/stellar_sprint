@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3419041129574255791}
   - component: {fileID: 3419041129574255777}
   - component: {fileID: 3419041129574255778}
-  - component: {fileID: 1877056438106248837}
   m_Layer: 11
   m_Name: Fuel
   m_TagString: Fuel
@@ -118,7 +117,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.00023382902, y: 0.00232929}
@@ -134,24 +133,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.2852181, y: 0.568637}
   m_EdgeRadius: 0
---- !u!50 &1877056438106248837
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3419041129574255790}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 20
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 1
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 0

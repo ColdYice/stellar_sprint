@@ -26,13 +26,13 @@ public class ItemCollector : MonoBehaviour
 
         switch (collectibleTag)
         {
-            //case "Fuel":
-            //    pickupSound.Play();
-            //    fuelsCollectedCurrentLevel++;
-            //    fuelsText.text = fuelsTotal.ToString() + "|+" + fuelsCollectedCurrentLevel.ToString();
-            //    fuelsCurrentText.text = fuelsCollectedCurrentLevel.ToString();
-            //    Destroy(other.gameObject);
-            //    break;
+            case "Fuel":
+                pickupSound.Play();
+                fuelsCollectedCurrentLevel++;
+                fuelsText.text = fuelsTotal.ToString() + "|+" + fuelsCollectedCurrentLevel.ToString();
+                fuelsCurrentText.text = fuelsCollectedCurrentLevel.ToString();
+                Destroy(other.gameObject);
+                break;
             case "Jetpack":
                 pickupSound.Play();
                 playerMovement.hasJetpack = true;
@@ -51,15 +51,15 @@ public class ItemCollector : MonoBehaviour
                 break;
         }
     }
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.tag == "Fuel")
-        {
-            pickupSound.Play();
-            fuelsCollectedCurrentLevel++;
-            fuelsText.text = fuelsTotal.ToString() + "|+" + fuelsCollectedCurrentLevel.ToString();
-            fuelsCurrentText.text = fuelsCollectedCurrentLevel.ToString();
-            Destroy(other.gameObject);
-        }
-    }
+    //private void OnCollisionEnter2D(Collision2D other)
+    //{
+    //    if (other.gameObject.tag == "Fuel")
+    //    {
+    //        pickupSound.Play();
+    //        fuelsCollectedCurrentLevel++;
+    //        fuelsText.text = fuelsTotal.ToString() + "|+" + fuelsCollectedCurrentLevel.ToString();
+    //        fuelsCurrentText.text = fuelsCollectedCurrentLevel.ToString();
+    //        Destroy(other.gameObject);
+    //    }
+    //}
 }
